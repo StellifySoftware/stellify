@@ -60,17 +60,17 @@ NB It may be that you wish to group objects that don't represent elements and yo
 
 ### Advanced components (grouping of elements and associated data)
 
-It's often impractical to develop entire webpages from atomic or even nested elements. This can be due to the complexity of the functionality required and/ or the underlying implementation of the elements' specification. Sometimes it makes sense to create a component that acts as a wrapper around functionality or related data. This practise is often referred to as "creating components". There is a difference here however and it's worth highlighting as if we fail to understand the potential trap that exists here we'll end up with the same issues existing frameworks encounter.  Components that are required in this system must still be atomic, not in terms of the markup but in all other aspects they should remain atomic. This is perhaps best illustrated by explaining the inverse of what I've just said or simply put: what you shouldn't do...
+It's often impractical to develop entire webpages from atomic or even nested elements. This can be due to the complexity of the functionality required and/ or the underlying implementation of the elements' specification. Sometimes it makes sense to create a component that acts as a wrapper around functionality or related data. This practise is often referred to as "creating components" and whilst components are needed, we must be careful not to inadvertently fall into the trap of returning to using file templates. The rule is: **components must still be atomic**. 
 
-Let's assume you envisage creating a component for a banner with two CTA buttons. If you were to create an object to represent this banner, what would that object look like? How would you distingish between the two buttons? You'd likely end up with objetc keys named `buttonOneLabel` and `buttonTwoLabel`. Where would the two buttons be located and how would you alter their position? The only solution here would be to create multiple banner components and there we are, back using file templates. Banners are a great use case for atomic elements, there's no need to group these elements in fact, it only serves to cause problems.
+Let's assume you envisage creating a component for a banner with two CTA buttons. If you were to create an object to represent this banner, what would that object look like? How would you distingish between the two buttons? You'd likely end up resorting to using object keys named `buttonOneLabel` and `buttonTwoLabel`. Where would the two buttons be located and how would you alter their position? The only solution here would be to create multiple banner components and there we are, back to using file templates and managing instance variables. Banners are a great use case for atomic elements, there's no need to group these elements in fact, it only serves to cause problems.
 
-Examples of legitimate components are:
+Examples of legitimate component use cases are:
 
  - An SVG component, as the SVG spec consists of lots of attributes and nested tags that determine the display of a graphic and therefore it makes sense to create a component that maps these attributes to dynamic values and handles the various parts of the SVG spec that are unique to it.
  - A button warrants its own component as the majority of elements do not trigger events, the same can be said for most form controls.
  - A product card or any component involving data that is connected in such a way that makes it impractical to divide it into individual objects.
 
-It's perhaps misleading to describe these components as being *advanced*. A definition of such an object is entirely consitent with the definitions we've looked at so far. To illustrate the point, here's an object that can render a rectangle shape using SVG:
+It's perhaps misleading to describe these components as *advanced*. A definition of such an object is entirely consitent with the definitions we've looked at so far. To illustrate the point, here's an object that can render a rectangle shape using SVG:
 
 ```
 {
