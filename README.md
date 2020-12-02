@@ -1,6 +1,6 @@
 ![enter image description here](https://stellifysoftware.s3.eu-west-2.amazonaws.com/stellisoftyellow.svg)
 
-The primary aim of Stellify is to take the definition of a webpage away from files and put it in a database. You may point out that with the exception of static site generators, all websites are constructed "from" database queries however, this tends to be a piecemeal approach whereby data is identified as being "dynamic" and then steps are taken to insert this data into HTML markup on the server or the data is passed to a script and then inserted into the DOM. **I'd ask you to put that approach to one side as this is not what is happening inside Stellify. Want to know more? Read on and I'll explain how Stellify approaches  dynamic content differently.** 
+The primary aim of Stellify is to take the definition of a webpage out of files and into a database. You may point out that with the exception of static site generators, all websites are constructed "from" database queries however, this tends to be a piecemeal approach whereby data is identified as being "dynamic" and then steps are taken to insert this data into HTML markup on the server or the data is passed to a script and then inserted into the DOM. **I'd ask you to put that approach to one side as this is not what is happening inside Stellify. Want to know more? Read on and I'll explain how Stellify approaches  dynamic content differently.** 
 
 ### Defining elements as objects
 
