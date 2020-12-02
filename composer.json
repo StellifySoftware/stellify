@@ -1,0 +1,24 @@
+{
+    "name": "stellisoft/stellify",
+    "description": "Stellify renders html directly from a database.",
+    "authors": [
+      {
+        "name": "Matthew Anderson",
+        "email": "matthew.anderson@mmediadesign.co.uk"
+      }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+      "psr-4": {
+        "Stellisoft\\Stellify\\": "src/"
+      }
+    },
+    "extra": {
+      "laravel": {
+        "providers": [
+          "Stellisoft\\Stellify\\StellifyServiceProvider"
+        ]
+      }
+    }
+  }
