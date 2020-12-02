@@ -110,7 +110,7 @@ There is a key ingredient required in order to make this concept work. We need a
 This example repo contains a Laravel package that includes examples of the core files and routines needed to construct and render webpages from a database rather than file templates, as we've described.
 
 The key files included are:
-1. Page controller: We've included an example front controller that assesses the route and fetches the objects required by the route.
+1. Page controller: We've included an example front controller that looks at the route and fetches the objects linked to it from a database.
 2. Utility controller: The true power of Stellify is in the manipulation of the objects stored in the database, we've provided some common routines that allow insertion, removal and duplication of objects.
 3. Vue Components. In this implementation we are using VueJS to process and render webpage as defined by the object definitions sent to the browser when navigating to a page. We'd advise you look at all the asset files, we haven't included many and they do hold the key to explaining how this implementation of Stellify works.
 
