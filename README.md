@@ -1,15 +1,15 @@
 ![enter image description here](https://stellifysoftware.s3.eu-west-2.amazonaws.com/stellisoftyellow.svg)
 
-The primary aim of Stellify is to take the definition of a webpage out of files and into a database. You may point out that with the exception of static site generators, all websites are constructed "from" database queries however,  this tends to be a piecemeal approach whereby data is identified as being "dynamic" and then steps are taken to insert this data into HTML markup or the data is passed to a script and then applied a file based template. **I'd ask you to put that approach to one side as this is not what is happening inside Stellify.** 
+The primary aim of Stellify is to take the definition of a webpage out of files and place it in a database. You may point out that with the exception of static site generators, all websites are constructed "from" database queries however, this tends to be a piecemeal approach whereby data is identified as being "dynamic" and then steps are taken to insert this data into HTML markup on the server or the data is passed to a script and then inserted into the DOM. **I'd ask you to put that approach to one side as this is not what is happening inside Stellify, read on.** 
 
-### Stellify maps objects to elements
+### Defining elements as objects
 
-Stellify takes an atomic approach to storing definitions. In HTML an *element* is indivisible and therefore it is possible to map an element to an object as shown below:
+Webpages are constructed from elements. Elements can be thought of as being atomic, meaning they are indivisible.
 
 ```
 <a href="/" class="relative ml-3">
 ```
-In Stellify, this element is stored as JSON definition:
+This element can stored in a database as JSON definition:
 
 ```
 {
@@ -21,9 +21,9 @@ In Stellify, this element is stored as JSON definition:
 }
 ```
 
-### Nested elements
+### Grouping nested elements
 
-Starting with a `div`, if we want to nest an element we attach the reference of the nested element in the `data` array of the div's object definition:
+If we want to nest an element within another element, which is common practice, we attach the reference of the nested element in the `data` array of the object definition:
 ```
 {
 	"id": "dde2418a-34b6-11eb-adc1-0242ac120002",
@@ -32,7 +32,7 @@ Starting with a `div`, if we want to nest an element we attach the reference of 
 	"data": ["f8d1ca9c-34b1-11eb-adc1-0242ac120002"]
 }
 ```
-Then to define the nested element:
+Then to define the nested element itself:
 ```
 {
 	"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
@@ -43,12 +43,24 @@ Then to define the nested element:
 }
 ```
 
+### Grouping elements to form a page
+
+Pages are stored as objects that include an array of references to top level object definitions:
+
+```
+{
+	"id": "1614476a-34bc-11eb-adc1-0242ac120002",
+	"title": "My First Stellify Webpage",
+	"data": ["dde2418a-34b6-11eb-adc1-0242ac120002"]
+}
+```
+
 ### Advanced components
 
-It's impractical to develop entire webpages from elements, due to the either complexity of the functionality required and/ or the underlying implementation of an element. In these instances, it makes sense to create a component to act as a wrapper around functionality or related data. Some examples that spring to mind would be:
+It's often impractical to develop entire webpages from elements, due to the either complexity of the functionality required and/ or the underlying implementation of an element. In these instances, it makes sense to create a component to act as a wrapper around functionality or related data. Some examples that spring to mind would be:
 
- - SVG elements that have been implemented in such a way that they involve lots of attributes and nested tags that affect the display of a graphic.
- - A button that triggers events.
+ - SVG elements involve lots of attributes and nested tags that affect the display of a graphic and therefore it makes sense to create a component.
+ - A button warrants its own component as the majority of elements do not trigger events.
  - A product card or any component involving data that is connected in such a way that makes it impractical to divide it into individual objects.
 
 ### Repository contents
@@ -61,4 +73,6 @@ Key files include:
 
 ### Live demo
 
-You can see how these objects can be used to form a webpage [here](https://stellisoft.com?edit). The demo includes an editor that allows for elements to be created and populated as objects ready for storage. As mentioned, the real power of Stellify is in manipulating the objects once they are stored to create new objects using existing definitions, adding to or amending stored objects using routines and duplicating objects to replicate functionality across pages of a website.
+You can see how this concept can be used to form a webpage [here](https://stellisoft.com?edit). This demo includes an editor that allows for elements to be created and populated as objects ready for storage in a database of your choice.
+
+The real power of Stellify is in manipulating these objects once they are stored to create new objects using existing definitions, adding to or amending stored objects using routines and duplicating objects to replicate functionality across pages of a website.
