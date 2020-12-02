@@ -89,7 +89,7 @@ Despite the language used here i.e. *advanced*, a definition of such an object i
 ```
 
 ### The Request
-As with all frameworks, a request is made for a resource. Only this instance, the next step is to retrieve the objects that are required for requested route, rather than to navigate through and buffer the various template files and logic gates to formulate a page. In this instance the logic is is already defined in the database and therefore such calculations just aren't required.
+As with all frameworks, a request is made for a resource. Only in this instance, the next step is to retrieve the objects that are required for requested route, rather than to navigate through and buffer the various template files and logic gates to formulate a page. In this instance the logic is is already defined in the database and therefore such calculations just aren't required.
 
 ### The Response
 Various options/ paths exist for the way in which we structure the response and also how to retrieve and organise the objects client side i.e. in the browser. The approach taken in this repo is to attach all the blocks required by the page as one large object "blob", keyed by each object's `id`, to the window object from which it can be accessed from a script. This allows the objects to be retrieved easily from anywhere within your scripts.
