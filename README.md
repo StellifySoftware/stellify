@@ -1,6 +1,6 @@
 ![enter image description here](https://stellifysoftware.s3.eu-west-2.amazonaws.com/stellisoftyellow.svg)
 
-The primary aim of Stellify is to take the constituent parts that make up a webpage out of template files and into a database. You may point out that, with the exception of static site generators, all websites to some degree are constructed from database queries however, in practice this tends to be a piecemeal approach whereby data is identified as needing to be "dynamic" and then steps are taken to store this data as a field in a database table. This field is retrieved when needed for inclusion in HTML markup. The best way to illustrate the different approach taken by Stellify is to map out exactly what it does differently so that you can make your own comparisons and draw your own conclusions.
+ With the exception of static site generators, websites are to varying degrees, constructed from database queries. In practice, this tends to be take the form of a piecemeal approach whereby data is identified as needing to be "dynamic" and then steps are taken to store this data as a field in a database table. Records are then retrieved when needed for inclusion in HTML markup that exists in (many) templates. The aim of Stellify is to take a different approach, one that involves storing *all* the data required to define a page in a database. How does it do this? Well the best way to illustrate the different approach taken by Stellify is to answer that very question, so let's do that.
 
 ### Defining elements as objects
 
@@ -56,40 +56,46 @@ Pages are stored as objects that include an array of references to top level obj
 	"data": ["dde2418a-34b6-11eb-adc1-0242ac120002"]
 }
 ```
+NB It may be that you wish to group objects that don't represent elements and you would do that in exactly the same way e.g. products can be grouped in a category in exactly the same way that we're using here to group (and order) elements within a page.
 
 ### Advanced components (grouping of elements and associated data)
 
-It's often impractical to develop entire webpages from atomic or even nested elements. Due to the either complexity of the functionality required and/ or the underlying implementation of an elements specification, sometimes it makes sense to create a component that acts as a wrapper around functionality or related data. This existing practise is often referred to as "creating components". There is a difference here however and it's worth highlighting as if we distinguish the difference we'll end up with the same issues existing frameworks encounter.  Components that are required in this system (Stellify) should still be atomic, not in terms of the markup but in other aspects they should be. This is perhaps best illustrated by explaining the inverse of what I've just said or put simply "what you shouldn't do".
+It's often impractical to develop entire webpages from atomic or even nested elements. This can be due to the complexity of the functionality required and/ or the underlying implementation of the elements' specification. Sometimes it makes sense to create a component that acts as a wrapper around functionality or related data. This practise is often referred to as "creating components". There is a difference here however and it's worth highlighting as if we fail to understand the potential trap that exists here we'll end up with the same issues existing frameworks encounter.  Components that are required in this system must still be atomic, not in terms of the markup but in all other aspects they should remain atomic. This is perhaps best illustrated by explaining the inverse of what I've just said or simply put: what you shouldn't do...
 
-Let's assume you envisaged a creating a component for a banner with two CTA buttons. If you were to create an object to represent this banner, what would that look like? How would you distingish between the two buttons? You'd end up with names such as `buttonOneLabel`, `buttonTwoLabel`. Where would the two buttons be located and how would you alter their position? The only solution would be to create multiple banner components and there we are, back using file templates. Banners are a great use case for atomic elements, no need to group these elements, it only serves to cause problems.
+Let's assume you envisage creating a component for a banner with two CTA buttons. If you were to create an object to represent this banner, what would that object look like? How would you distingish between the two buttons? You'd likely end up with objetc keys named `buttonOneLabel` and `buttonTwoLabel`. Where would the two buttons be located and how would you alter their position? The only solution here would be to create multiple banner components and there we are, back using file templates. Banners are a great use case for atomic elements, there's no need to group these elements in fact, it only serves to cause problems.
 
-Components you would create for use with this system could be:
+Examples of legitimate components are:
 
- - An SVG component as this involves creating lots of attributes and nested tags that affect the display of a graphic and therefore it makes sense to create a component that maps attributes to dynamic values and facilitates inner loops for nested tags that allow for animations and image manipulations.
- - A button warrants its own component as the majority of elements do not trigger events.
+ - An SVG component, as the SVG spec consists of lots of attributes and nested tags that determine the display of a graphic and therefore it makes sense to create a component that maps these attributes to dynamic values and handles the various parts of the SVG spec that are unique to it.
+ - A button warrants its own component as the majority of elements do not trigger events, the same can be said for most form controls.
  - A product card or any component involving data that is connected in such a way that makes it impractical to divide it into individual objects.
 
-Despite the language used here i.e. *advanced*, a definition of such an object is entirely consitent with the definitions we've looked at so far. By way of example, here's a definition that can render a rectangle shape using SVG:
+It's perhaps misleading to describe these components as being *advanced*. A definition of such an object is entirely consitent with the definitions we've looked at so far. To illustrate the point, here's an object that can render a rectangle shape using SVG:
 
 ```
 {
 	"id": "16b24590-349a-11eb-adc1-0242ac120002",
-	"tag": "rect",
 	"type": "svg",
+	"viewBox": "0 0 1200 400",
+	"data": [
+		{
+			"tag": "rect"
+			"x": 300,
+			"y": 100,
+			"fill": "url('#linearGradient')",
+		}
+	],
 	"classes": [
 		"w-64",
 		"h-64",
 		"from-purple-500",
 		"to-blue-800"
 	],
-	"viewBox": "0 0 1200 400",
-	"x": 300,
-	"y": 100,
-	"fill": "url('#linearGradient')",
 	"width": "24",
 	"height": "24"
 }
 ```
+NB The data array of objects shown in this example should be just an array of references that can be used to retrive the shape or path definitions stored in the "blob" of object definitions passed from the server, this may seem counter-intuitive but it allows for much cleaner systems and easier maintainence.
 
 ### The Request
 As with all frameworks, a request is made for a resource. Only in this instance, the next step is to retrieve the objects that are required for requested route, rather than to navigate through and buffer the various template files using logic gates to determine how to formulate the requested page. With Stellify, the logic has already been defined in the database itself and therefore such calculations just aren't required. It's not an altogether different situation to the use of cache to serve up a dynamic page and like with cache, if a change has taken place it will be recognised.
