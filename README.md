@@ -66,7 +66,7 @@ It's often impractical to develop entire webpages from atomic or even nested ele
  - A button warrants its own component as the majority of elements do not trigger events.
  - A product card or any component involving data that is connected in such a way that makes it impractical to divide it into individual objects.
 
-Despite the indication that these components are **advanced**, a definition of such an object is consitent with the definitions we've looked at so far. By way of example, here's a definition of an SVG "rectangle":
+Despite the language used here i.e. *advanced*, a definition of such an object is entirely consitent with the definitions we've looked at so far. By way of example, here's a definition that will render a rectangle shape using SVG:
 
 ```
 {
@@ -88,12 +88,14 @@ Despite the indication that these components are **advanced**, a definition of s
 }
 ```
 
+### The Request
+As with all frameworks, a request is made for a resource. Only this instance, the next step is to retrieve the objects that are required for requested route, rather than to navigate through and buffer the various template files and logic gates to formulate a page. In this instance the logic is is already defined in the database and therefore such calculations just aren't required.
+
 ### The Response
 Various options/ paths exist for the way in which we structure the response and also how to retrieve and organise the objects client side i.e. in the browser. The approach taken in this repo is to attach all the blocks required by the page as one large object "blob", keyed by each object's `id`, to the window object from which it can be accessed from a script. This allows the objects to be retrieved easily from anywhere within your scripts.
 
 ### The "Glue"
 There is a key ingredient required in order to make this concept work. We need a code that is capable of rendering the element(s) defined by the objects on the page itself. The client-side framework VueJS provides this code in the form of their [dynamic component](https://vuejs.org/v2/guide/components.html#Dynamic-Components). Most modern frameworks have a comparable method that achieves the same thing.
-
 
 ### Repository contents
 This repo contains a Laravel package that includes examples of the core files and routines required to construct and render webpages from a database rather than file templates as described.
@@ -104,7 +106,6 @@ Key files include:
 3. Vue Components. In this implementation we are using VueJS to process and render webpage as defined by the object definitions sent to the browser when navigating to a page.
 
 ### Live demo
-
 You can see how this concept can be used to generate a webpage [here](https://stellisoft.com?edit). This demo includes an editor that allows for elements to be created, altered and populated as objects ready for storage in a database.
 
 The real power of this approach is in the manipulation these objects (once they are stored) to create new objects using existing definitions, adding to or amending stored objects using routines and duplicating objects to replicate functionality across pages of a website.
