@@ -348,7 +348,7 @@ There are **lots** more advantages that are specific to various use cases. Why n
 
   
 
-You can see this in action [here](https://stellisoft.com?edit).
+You can Stellify in action [here](https://stellisoft.com?edit).
 
   
 
@@ -356,4 +356,4 @@ You can see this in action [here](https://stellisoft.com?edit).
 
   
 
-We're making use of GitHub's Projects, so you can see what we're working on and get involved if you wish. For more information or to make enquires, please visit our [website](https://stellisoft.com)
+We're making use of GitHub's Projects, so you can see what we're working on and get involved if you wish. For more information or for any enquiries, please visit our [website](https://stellisoft.com) or email <matthew.anderson@stellisoft.com>
