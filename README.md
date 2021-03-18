@@ -340,7 +340,7 @@ This approach comes with lots of advantages:
 
   
 
-There are **lots** more advantages that are specific to various use cases. Why not come to our [website](https://stellisoft.com) and talk us about what you're doing?
+There are **lots** more advantages that are specific to various use cases. Why not visit our [website](https://stellisoft.com) and talk us about what you're doing?
 
   
 
