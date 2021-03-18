@@ -194,7 +194,7 @@ This approach comes with lots of advantages:
 
 - No more file templates.
 
-- Edit your page content right down to element level.
+- Easily edit your page content right down to element level.
 
 - Variables that display data within elements are themselves variable and therefore your data is completely detached from presentation, giving you the freedom and flexibility that web developers have always craved.
 
