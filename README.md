@@ -159,7 +159,7 @@ Elements have their own event ecosystem that allows them to watch and interact w
 
 ###  Templates (grouping of elements and associated data)
 
-It's often impractical to develop entire webpages by adding individual elements. This can be due to time or complexity. Sometimes it makes sense to simply use a template. In Stellify, templates are elements that have been grouped together and in some cases they have been configured to communicate with one another to perform tasks such as displaying a group of elements that depict a modal window, or hiding text in an input box. We're always developing new and interesting templates and we invite you to do so too.
+It's often impractical to develop entire webpages by adding individual elements. This can be due to time or complexity. Sometimes it makes sense to simply use a template. In Stellify, templates are elements that have been grouped together to perform a function or purpose and in some cases they have been configured to communicate with one another in order to carry out tasks such as displaying a group of elements that depict a modal window, or hiding text in an input box. We're always developing new and interesting templates and we invite you to do so too.
 
 ### The result?
 
