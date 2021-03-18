@@ -31,7 +31,6 @@ We can define and store a representation of this element in a database as a JSON
 
 ```
 {
-
 	"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
 	"type": "s-element",
 	"text": "Visit Stellisoft",
