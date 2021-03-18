@@ -21,7 +21,6 @@ All webpages are constructed from elements. An individual element looks like thi
 
 ```
 <a href="/" class="relative ml-3">Visit Stellisoft</a>
-
 ```
 
   
@@ -40,9 +39,6 @@ We can define and store a representation of this element in a database as a JSON
 	"href": "/",
 	"classes": ["relative", "ml-3"]
 }
-
-  
-
 ```
 
   
