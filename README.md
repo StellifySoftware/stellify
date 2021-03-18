@@ -20,7 +20,6 @@ All webpages are constructed from elements. An individual element looks like thi
   
 
 ```
-
 <a href="/" class="relative ml-3">Visit Stellisoft</a>
 
 ```
@@ -32,9 +31,6 @@ We can define and store a representation of this element in a database as a JSON
   
 
 ```
-
-  
-
 {
 
 	"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
@@ -56,14 +52,11 @@ Some elements however, are nested within other elements:
   
 
 ```
-
 <a href="/" class="relative">
 
 	<span class="text-red-500">Visit Stellisoft</span
 
 </a>
-
-
 ```
 
   
@@ -73,7 +66,6 @@ If we want to depict nesting an element using a JSON, we attach the reference of
   
 
 ```
-
 {
 	"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
 	"type": "s-element",
