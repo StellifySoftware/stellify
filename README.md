@@ -21,11 +21,7 @@ All webpages are constructed from elements. An individual element looks like thi
 
 ```
 
-  
-
 <a href="/" class="relative ml-3">Visit Stellisoft</a>
-
-  
 
 ```
 
@@ -41,32 +37,12 @@ We can define and store a representation of this element in a database as a JSON
 
 {
 
-  
-
-"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
-
-  
-
-"type": "s-element",
-
-  
-
-"text": "Visit Stellisoft",
-
-  
-
-"tag": "a",
-
-  
-
-"href": "/",
-
-  
-
-"classes": ["relative", "ml-3"]
-
-  
-
+	"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
+	"type": "s-element",
+	"text": "Visit Stellisoft",
+	"tag": "a",
+	"href": "/",
+	"classes": ["relative", "ml-3"]
 }
 
   
@@ -81,15 +57,12 @@ Some elements however, are nested within other elements:
 
 ```
 
-  
-
 <a href="/" class="relative">
 
-<span class="text-red-500">Visit Stellisoft</span
+	<span class="text-red-500">Visit Stellisoft</span
 
 </a>
 
-  
 
 ```
 
@@ -102,140 +75,48 @@ If we want to depict nesting an element using a JSON, we attach the reference of
 ```
 
 {
-
-  
-
-"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
-
-  
-
-"type": "s-element",
-
-  
-
-"text": "Visit Stellisoft",
-
-  
-
-"data": ["28f9b9c2-87e2-11eb-8dcd-0242ac130003"]
-
-  
-
-"tag": "a",
-
-  
-
-"href": "/",
-
-  
-
-"classes": ["relative", "ml-3"]
-
-  
-
+	"id": "f8d1ca9c-34b1-11eb-adc1-0242ac120002",
+	"type": "s-element",
+	"text": "Visit Stellisoft",
+	"data": ["28f9b9c2-87e2-11eb-8dcd-0242ac130003"],
+	"tag": "a",
+	"href": "/",
+	"classes": ["relative", "ml-3"]
 }
-
-  
-
 ```
-
-  
 
 Then we define the nested element itself:
 
-  
-
 ```
-
-  
-
 {
-
-  
-
-"id": "28f9b9c2-87e2-11eb-8dcd-0242ac130003",
-
-  
-
-"type": "s-element",
-
-  
-
-"text": "Visit Stellisoft",
-
-  
-
-"tag": "span",
-
-  
-
-"classes": ["text-red-500"]
-
-  
-
+	"id": "28f9b9c2-87e2-11eb-8dcd-0242ac130003",
+	"type": "s-element",
+	"text": "Visit Stellisoft",
+	"tag": "span",
+	"classes": ["text-red-500"]
 }
-
-  
-
 ```
-
-  
 
 Notice how the `id` field corresponds to the single reference found in the `data` array of the parent element definition.
 
-  
-
 So let's assume we have our element definitions stored in a database, next we need to render them in the browser.
-
-  
-  
-  
 
 ### Attach Elements to Form a Page
 
-  
-
-  
-
 The first step to displaying our elements is to attach them to a page definition. Yes, pages are also stored as JSON objects. They include an array of references to your element JSON object definitions. The `data` array on a page object contains the top level elements found on a page and the `blocks` array references all the element definitions found on a page (except those that are globally accessible, we'll come to that shortly).
 
-  
-
 ```
-
-  
-
 {
-
-  
-
-"id": "1614476a-34bc-11eb-adc1-0242ac120002",
-
-  
-
-"title": "My First Stellify Webpage",
-
-  
-
-"data": ["f8d1ca9c-34b1-11eb-adc1-0242ac120002"],
-
-  
-
-"blocks: ["28f9b9c2-87e2-11eb-8dcd-0242ac130003"]
-
-  
-
+	"id": "1614476a-34bc-11eb-adc1-0242ac120002",
+	"title": "My First Stellify Webpage",
+	"data": ["f8d1ca9c-34b1-11eb-adc1-0242ac120002"],
+	"blocks: ["28f9b9c2-87e2-11eb-8dcd-0242ac130003"]
 }
-
-  
-
 ```
 
   
 
 ### The Request
-
-  
 
 As with all webpages, a request is made for a server to return a resource. Only in this instance, the primary objective is to retrieve all the JSON objects that are required to render the requested page as defined in the page definition (contrast this to navigating through and buffering the various template files to determine how to formulate the requested page). It's not an altogether different situation to the use of cache to serve up a dynamic page and like with cache, if a change has taken place then it will be recognised.
 
@@ -356,4 +237,4 @@ You can Stellify in action [here](https://stellisoft.com?edit).
 
   
 
-We're making use of GitHub's Projects, so you can see what we're working on and get involved if you wish. For more information or for any enquiries, please visit our [website](https://stellisoft.com) or email <matthew.anderson@stellisoft.com>
+We're making use of GitHub's Projects, so you can see what we're working on and get involved if you wish. For more information or for any enquiries, please visit our [website](https://stellisoft.com) or email <matthew.anderson@stellisoft.com>.
