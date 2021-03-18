@@ -8,7 +8,7 @@ How does it do this? Well the best way to illustrate the different approach take
 ### Defining elements as objects
 
 
-All webpages are constructed from elements. An individual element looks like this.
+All webpages are constructed from elements. An individual element looks like this:
 
 ```
 
@@ -38,7 +38,7 @@ We can define and store a representation of this element in a database as a JSON
 
 ```
 
-Some elements however, are nested within other elements.
+Some elements however, are nested within other elements:
 
 ```
 
@@ -91,9 +91,9 @@ Then we define the nested element itself:
 
 ```
 
-Notice how the `id` field corresponds to the single reference found in the `data`  array.
+Notice how the `id` field corresponds to the single reference found in the `data`  array of the parent element definition.
 
-So we have our elements stored in a database we need to render them in the browser.
+So let's assume we have our elements stored in a database, next we need to render them in the browser.
 
 
 
@@ -140,6 +140,13 @@ We categorise elements into various types. We do this as some elements have lots
  - Embed Element (iFrame, Object)
 
 You can create just about anything with these elements. They are the same set of elements used on all webpages on the WWW!
+
+### Global element definitions
+
+We extend the concept of storing definitions as JSON to encompass the settings that apply to your entire website or web app. 
+
+It is possible to store definitions that are *always* fetched. This is useful for headers, footers and any element(s) that reoccur across your entire website.
+
 
 ### Events
 
