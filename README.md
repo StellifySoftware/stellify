@@ -1,8 +1,8 @@
 # Stellify
  
-Websites are, to varying degrees, constructed from database queries. In practice, this tends to take the form of a piecemeal approach whereby data is identified as needing to be "dynamic" and then steps are taken to store this data as a field in a database table. Records are then retrieved when needed for inclusion in HTML markup that exists in template files. The aim of Stellify is to take a different approach, one that involves storing *all* the data required to define a page in a database. 
+Websites are, to varying degrees, constructed from database queries. In practice, this tends to take the form of a piecemeal approach, whereby data is identified as needing to be "dynamic" and then steps are taken to store this data as a field in a database table. Records are then retrieved when needed for inclusion in HTML markup stored in template files. The aim of Stellify is to take a different approach, one that involves storing *all* the data required to define a page, in a database. 
 
-How does it do this? Well the best way to illustrate the different approach taken by Stellify is to answer that very question, so let's do that.
+How does it do this? Well the best way to illustrate the different approach taken by Stellify is to dive into answering that very question, so let's do that.
 
 
 ### Defining elements as objects
@@ -93,7 +93,7 @@ Then we define the nested element itself:
 
 Notice how the `id` field corresponds to the single reference found in the `data`  array of the parent element definition.
 
-So let's assume we have our elements stored in a database, next we need to render them in the browser.
+So let's assume we have our element definitions stored in a database, next we need to render them in the browser.
 
 
 
@@ -121,12 +121,16 @@ The first step to displaying our elements is to attach them to a page definition
 
 ### The Request
 
-As with all webpages, a request is made for a server to return a resource. Only in this instance, the primary objective is to retrieve the JSON objects that are required to render the requested page (rather than to navigate through and buffer the various template files using logic gates to determine how to formulate the requested page). With Stellify, the logic has already been defined in the database itself and therefore such calculations just aren't required. It's not an altogether different situation to the use of cache to serve up a dynamic page and like with cache, if a change has taken place then it will be recognised. It is entirely possible (and quite a cool feature) to render the definitions on the server and serve the page, this approach uses components that mirror the components used for client side rendering in terms of the way that the markup/HTML is constructed, however, these components still require javascript equivalents to make the markup dynamic once displayed in the browser, unless your page is to be entirely static of course!
+As with all webpages, a request is made for a server to return a resource. Only in this instance, the primary objective is to retrieve all the JSON objects that are required to render the requested page as defined in the page definition (contrast this to navigating through and buffering the various template files to determine how to formulate the requested page). It's not an altogether different situation to the use of cache to serve up a dynamic page and like with cache, if a change has taken place then it will be recognised. 
+
+NB It is entirely possible (and quite a cool feature) to render the definitions on the server and serve the page, this approach uses components that mirror the components used for client side rendering in terms of the way that the markup/HTML is constructed, however, these components still require javascript equivalents to make the markup dynamic once displayed in the browser, unless your page is to be entirely static of course!
 
 
 ### The Response
 
-Sticking with client side rendering. The definitions we requested are attached to the browser window and are therefore accessible to scripts running on the page. The application's script processes the top level element definitions and then proceeds to recursively attached them to the Document Object Model (DOM).
+Assuming we're using client-side rendering. The definitions we requested are attached to the browser window and are therefore accessible to scripts running on the page. Stellify's application script processes the top level element definitions and then proceeds to recursively attached them to the Document Object Model (DOM). This process results in the definitions being rendered as HTML elements.
+
+And there we have it, a rendered webpage 🎉
 
 
 ### Types of Elements
