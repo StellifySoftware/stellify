@@ -149,7 +149,7 @@ We categorise elements into various types. We do this as some elements have lots
 
   
 
-You can create just about anything with these elements. They are the same set of elements used on all webpages on the WWW!
+You can create just about anything with these elements. After all, they are the same set of elements used on all webpages on the WWW!
 
   
 
