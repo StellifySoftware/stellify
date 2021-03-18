@@ -336,6 +336,7 @@ This approach comes with lots of advantages:
 - Make backups at any time. You can store the data that makes up your webpage or site however and wherever you like. Store multiple copies and toggle between which "set" is retrieved for A/B testing purposes, share with colleagues, put it on a pen drive, you have complete freedom to do what you wish!
 - Fast deployments (remember no files, just data)
 - Issue site wide updates without deployments and with the ability to target individual elements...Powerful.
+- Makes the concept of a "headless" system obsolete as the advantages of such a system are encapsulated within Stellify.
 
   
 
