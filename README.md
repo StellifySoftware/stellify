@@ -124,7 +124,7 @@ Assuming we're using client-side rendering. The definitions we requested are att
 
 And there we have it, a rendered webpage 🎉
 
-Now, of course there is more going on in and around this explanation but at it's core that is effectively how Stellify works.
+Now, of course there is more going on in and around this explanation but at its core that is effectively how Stellify works.
 
   
   
