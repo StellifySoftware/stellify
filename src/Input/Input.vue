@@ -3,7 +3,7 @@
         :style="[styles]"
         :class="[enabledClasses, classes]"
         :is="computedTag"
-        ref="input"
+        :ref="items.ref"
         :maxlength="items.maxlength"
         :max="items.max"
         :pattern="items.pattern"
@@ -26,7 +26,7 @@
         @change="onChange"
         @blur="onBlur"
         @focus="onFocus" 
-        @click="clickHandler"
+        @click.stop="clickHandler"
         @mouseover="mouseoverEvent"
         @mouseleave="mouseleaveEvent">
         {{ typeof items.field != 'undefined' ? content[record][items.field] : items.text }}
@@ -36,6 +36,7 @@
             :content="content"
             :record="record"
             :indicator="indicator"
+            :state="state"
             :settings="settings"
             :is="content[item].type"
             :opts="content[item]">
@@ -70,6 +71,10 @@
                 type: Object,
                 default: function () { return {} }
             },
+            state: {
+                type: Object,
+                default: function () { return {} }
+            },
             settings: {
                 type: Object,
                 default: function () { return {} }
@@ -84,7 +89,9 @@
             return {
                 passwordHidden: true,
                 items: {},
-                charCount: 0
+                charCount: 0,
+                targetIds: [],
+                childIds: []
             }
         },
         watch: {
@@ -95,6 +102,18 @@
                     }
                     if (this.items.target && this.items.targetField && this.content[this.items.target]) {
                         this.$set(this.items, this.items.targetField, this.content[this.items.target][this.items.targetField]);
+                    }
+                },
+                deep: true
+            },
+            state: {
+                handler(val){
+                    if ((this.items.enabled && !this.childIds.includes(this.state.lastClicked) && !this.targetIds.includes(this.state.lastClicked)) || this.targetIds.includes(this.state.lastClicked) && this.items.disableOnClick) {
+                        this.$set(this.items, 'enabled', false);
+                        this.$forceUpdate();
+                    }
+                    if (this.items.enabled && (this.state.lastKeyPress === 'Escape' || this.state.lastKeyPress === 'Esc')) {
+                        this.items.enabled = false;
                     }
                 },
                 deep: true
@@ -168,14 +187,14 @@
                 }
             },
             clickHandler() {
-                this.items.enabled = !this.items.enabled;
+                this.toggle();
                 if (this.items.clickEvent) {
                     this.$root.$emit(this.items.clickEvent, this.items);
                 } else if (typeof this.content[this.items.target] != 'undefined' && typeof this.items.targetField != 'undefined') {
                     if (this.items.toggleState) {
 						this.$set(this.content[this.items.target], this.items.targetField, this.content[this.items.target][this.items.targetField] == this.items.toggleState[0] ? this.items.toggleState[1] : this.items.toggleState[0]);
-					} else {
-                        console.log(this.items.target, this.items.targetField)
+					} else if (this.items.targetField != 'enabled') {
+                        console.log('not here')
                         this.$set(this.content[this.items.target], this.items.targetField, this.content[this.items.target][this.items.targetField] == true ? false : true);
                     }
 				}
@@ -183,6 +202,30 @@
                     this.updateCount();
                 }
                 this.$forceUpdate();
+            },
+            fetchChildIds(slug) {
+                if (this.content[slug].data) {
+                    for (let i = 0; i < this.content[slug].data.length; i++) {
+                        this.childIds.push(this.content[slug].data[i]);
+                        this.fetchChildIds(this.content[slug].data[i]);
+                    }
+                } else {
+                    return;
+                }
+            },
+            fetchTargetIds(slug) {
+                if (this.content[slug].data) {
+                    for (let i = 0; i < this.content[slug].data.length; i++) {
+                        this.targetIds.push(this.content[slug].data[i]);
+                        this.fetchTargetIds(this.content[slug].data[i]);
+                    }
+                } else {
+                    return;
+                }
+            },
+            toggle() {
+                if (this.items.disabled) return
+                this.$set(this.items, 'enabled', !this.items.enabled);
             }
         },
         beforeMount: function () {
@@ -192,13 +235,19 @@
             if (this.items.tag == 'div') {
                 this.$set(this.items, 'tag', 'input');
             }
-            // if (this.items.target && this.content[this.items.target] && this.items.targetField) {
-            //     if (this.items.toggleState) {
-            //         this.$set(this.content[this.items.target], this.items.targetField, this.content[this.items.target][this.items.targetField] == this.items.toggleState[0] ? this.items.toggleState[1] : this.items.toggleState[0]);
-            //     } else {
-            //         this.$set(this.content[this.items.target], this.items.targetField, this.content[this.items.target][this.items.targetField] == true ? false : true);
-            //     }
-            // }
+            if (this.items.target) {
+                this.targetIds.push(this.items.target);
+                if (this.content[this.items.target].data) {
+                    this.fetchTargetIds(this.items.target);
+                }
+            }
+            this.childIds.push(this.items.slug);
+            if (this.items.data) {
+                this.fetchChildIds(this.items.slug);
+            }
+            if (this.items.target && this.items.targetField && this.content[this.items.target]) {
+                this.$set(this.items, this.items.targetField, this.content[this.items.target][this.items.targetField]);
+            }
         }
     }
 </script>

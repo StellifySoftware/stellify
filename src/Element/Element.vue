@@ -4,6 +4,7 @@
             v-for="(record, index) in content[items.source].data" 
             :key="index"
             :is="computedTag"
+            :ref="items.ref"
             :name="content[record] && items.nameField ? content[record][items.nameField] : items.name"
             :value="content[record] && items.valueField  ? content[record][items.valueField] : items.value"
             :src="content[record] && items.srcField  ? content[record][items.srcField] : items.src"
@@ -18,7 +19,8 @@
             :rel="content[record] && items.relField  ? content[record][items.relField] : items.rel"
             :target="content[record] && items.targetField  ? content[record][items.targetField] : items.target"
             :title="content[record] && items.titleField  ? content[record][items.titleField] : items.title"
-            :class="[content[record] ? content[record][items.classesField] : null, {'border border-red-400': indicator == items.slug}]">
+            :class="[content[record] ? content[record][items.classesField] : null, {'border border-red-400': indicator == items.slug}]"
+            @click.stop="clickHandler">
             {{ typeof items.field != 'undefined' ? content[record][items.field] : items.text }}
             <component
                 v-for="(item, index) in items.data" 
@@ -37,12 +39,14 @@
         :style="[styles]"
         :class="[classes, enabledClasses, {'border border-red-400': indicator == items.slug}]"
         v-else-if="items.html"
-        v-html="items.html">
+        v-html="items.html"
+        @click.stop="clickHandler">
     </component>
     <component
         v-else
         :is="computedTag"
         :style="[styles]"
+        :ref="items.ref"
         :name="content[record] && items.nameField ? content[record][items.nameField] : items.name"
         :value="content[record] && items.valueField  ? content[record][items.valueField] : items.value"
         :src="content[record] && items.srcField  ? content[record][items.srcField] : items.src"
@@ -57,7 +61,8 @@
         :rel="content[record] && items.relField  ? content[record][items.relField] : items.rel"
         :target="content[record] && items.targetField  ? content[record][items.targetField] : items.target"
         :title="content[record] && items.titleField  ? content[record][items.titleField] : items.title"
-        :class="[classes, enabledClasses, {'border border-red-400': indicator == items.slug}]">
+        :class="[classes, enabledClasses, {'border border-red-400': indicator == items.slug}]"
+        @click.stop="clickHandler">
             {{ typeof items.field != 'undefined' ? content[record][items.field] : items.text }}
             <component
                 v-for="(item, index) in items.data" 
@@ -65,6 +70,7 @@
                 :content="content"
                 :record="record"
                 :indicator="indicator"
+                :state="state"
                 :settings="settings"
                 :is="content[item].type"
                 :opts="content[item]">
@@ -91,6 +97,10 @@
                 type: Object,
                 default: function () { return {} }
             },
+            state: {
+                type: Object,
+                default: function () { return {} }
+            },
             settings: {
                 type: Object,
                 default: function () { return {} }
@@ -108,14 +118,19 @@
         watch: {
             content: {
                 handler(val){
-                    if (this.items.displayValueLength && this.items.target && this.content[this.items.target]) {
-                        this.$set(this.items, 'text', this.content[this.items.target].value.length);
+                    if (this.items.displayValueLength && this.items.watch && this.content[this.items.watch]) {
+                        this.$set(this.items, 'text', this.content[this.items.watch].value.length);
                     }
-                    if (this.items.target && this.items.targetField && this.content[this.items.target]) {
-                        this.$set(this.items, this.items.targetField, this.content[this.items.target][this.items.targetField]);
+                    if (this.content[this.items.watch] && this.items.targetField) {
+                        this.$set(this.items, this.items.targetField, this.content[this.items.watch][this.items.targetField]);
                     }
                 },
                 deep: true
+            }
+        },
+        methods: {
+            clickHandler() {
+                this.$root.$emit('captureClick', this.items.slug);
             }
         },
         computed: {
