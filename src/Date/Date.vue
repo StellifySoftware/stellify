@@ -1,13 +1,7 @@
 <template>
     <component
-        :style="[styles]"
         :is="computedTag"
-        :controls="!items.disableControls"
-        :playsinline="items.playsinline" 
-        :autoplay="items.autoplay" 
-        :preload="items.preload" 
-        :muted="items.muted" 
-        :loop="items.loop"
+        :style="[styles]"
         :class="classes">
         {{ formatted }}
         <component
@@ -30,12 +24,24 @@
         data() {
             return {
                 items: {},
-                now: new Date(),
-                date: {},
+                duration: null
             }
         },
         computed: {
+            _seconds: () => 1000,
+            _minutes() {
+                return this._seconds * 60;
+            },
+            _hours() {
+                return this._minutes * 60;
+            },
+            _days() {
+                return this._hours * 24;
+            },
             formatted() {
+                if (this.items.countdown && this.items.end) {
+                    return this.duration;
+                }
                 return moment(this.items.datetime ? this.items.datetime : this.now).format(this.items.format ? this.items.format : 'dddd Do MMMM YYYY');
             },
             computedTag() {
@@ -55,10 +61,33 @@
                 };
             }
         },
+        methods: {
+            countdown() {
+                if (this.items.end) {
+                    const timer = setInterval(() => {
+                        const now = new Date();
+                        const end = new Date(this.items.end);
+                        const duration = end.getTime() - now.getTime();
+                        if (this.items.unit == 'Seconds') {
+                            this.duration = Math.floor((duration % this._minutes) / this._seconds);
+                        } else if (this.items.unit == 'Minutes') {
+                            this.duration = Math.floor((duration % this._hours) / this._minutes);
+                        } else if (this.items.unit == 'Hours') {
+                            this.duration = Math.floor((duration % this._days) / this._hours);
+                        } else if (this.items.unit == 'Days') {
+                            this.duration = Math.floor(duration / this._days);
+                        }
+                    }, 1000);
+                }
+            }
+        },
         beforeMount: function () {
             if (this.opts != null) {
                 this.items = this.opts;
             }
+        },
+        mounted() {
+            this.countdown();
         }
     }
 </script>
