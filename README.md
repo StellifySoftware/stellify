@@ -1,5 +1,5 @@
 
-# Stellify
+# Elements
 ## A wrapper around HTML, CSS and Javascript
 
 As I'm sure you know, websites are, to varying degrees, constructed from database queries. In practice, this tends to take the form of a piecemeal approach, whereby data is identified as needing to be "dynamic" and then steps are taken to store this data as a field in a database table. Records are then retrieved when needed for inclusion in HTML markup stored in template files. The aim of Stellify is to take a different approach, one that involves storing *all* the data required to define a page, in a database.
@@ -217,7 +217,7 @@ There are **lots** more advantages that are specific to various use cases. Why n
 
   
 
-You can Stellify in action [here](https://stellisoft.com?edit).
+You can see Elements in action [here](https://stellisoft.com?edit).
 
   
 
